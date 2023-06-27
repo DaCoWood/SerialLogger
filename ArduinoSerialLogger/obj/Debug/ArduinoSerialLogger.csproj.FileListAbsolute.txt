@@ -1,0 +1,11 @@
+C:\Users\FH\source\repos\ArduinoSerialLogger\ArduinoSerialLogger\bin\Debug\ArduinoSerialLogger.exe.config
+C:\Users\FH\source\repos\ArduinoSerialLogger\ArduinoSerialLogger\bin\Debug\ArduinoSerialLogger.exe
+C:\Users\FH\source\repos\ArduinoSerialLogger\ArduinoSerialLogger\bin\Debug\ArduinoSerialLogger.pdb
+C:\Users\FH\source\repos\ArduinoSerialLogger\ArduinoSerialLogger\obj\Debug\ArduinoSerialLogger.csprojAssemblyReference.cache
+C:\Users\FH\source\repos\ArduinoSerialLogger\ArduinoSerialLogger\obj\Debug\ArduinoSerialLogger.Form1.resources
+C:\Users\FH\source\repos\ArduinoSerialLogger\ArduinoSerialLogger\obj\Debug\ArduinoSerialLogger.Properties.Resources.resources
+C:\Users\FH\source\repos\ArduinoSerialLogger\ArduinoSerialLogger\obj\Debug\ArduinoSerialLogger.csproj.GenerateResource.cache
+C:\Users\FH\source\repos\ArduinoSerialLogger\ArduinoSerialLogger\obj\Debug\ArduinoSerialLogger.csproj.CoreCompileInputs.cache
+C:\Users\FH\source\repos\ArduinoSerialLogger\ArduinoSerialLogger\obj\Debug\ArduinoSerialLogger.exe
+C:\Users\FH\source\repos\ArduinoSerialLogger\ArduinoSerialLogger\obj\Debug\ArduinoSerialLogger.pdb
+C:\Users\FH\source\repos\ArduinoSerialLogger\ArduinoSerialLogger\obj\Debug\ArduinoSerialLogger.csproj.ResolveComReference.cache
