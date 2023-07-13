@@ -78,12 +78,25 @@ namespace ArduinoSerialLogger
                 delimiterComboBox.SelectedIndex = 0;
             }
 
+            StringCollection lineDelimiterCollection = Properties.Settings.Default.lineDelimiterCollection;
+            lineDelimiterComboBox.Items.Clear();
+            bool lineDelimiterFound = false;
+            foreach (string delimiter in lineDelimiterCollection)
+            {
+                lineDelimiterComboBox.Items.Add(delimiter);
+                if (delimiter == Properties.Settings.Default.lineDelimiter)
+                {
+                    lineDelimiterComboBox.SelectedItem = delimiter;
+                    lineDelimiterFound = true;
+                }
+            }
+            if (portBox.Items.Count > 0 && !lineDelimiterFound)
+            {
+                lineDelimiterComboBox.SelectedIndex = 0;
+            }
+
             writeToExcelCheckbox.Checked = Properties.Settings.Default.writeToExcel;
 
-            if (Properties.Settings.Default.afterWritingToCell == 0)
-            {
-                noActionRadioButton.Checked = true;
-            }
             if (Properties.Settings.Default.afterWritingToCell == 1)
             {
                 nextRowRadioButton.Checked = true;
@@ -145,10 +158,12 @@ namespace ArduinoSerialLogger
             {
                 delimiter = "\r";
             }
+            string lineDelimiter = Properties.Settings.Default.lineDelimiter;
 
             _serialPort.ReadExisting();
             string s = "";
             waitingForData = true;
+            int dataPointsPerLine = 0;
             while (waitingForData)
             {
                 String r = _serialPort.ReadExisting();
@@ -158,17 +173,29 @@ namespace ArduinoSerialLogger
                 }
                 foreach (char c in r)
                 {
+                    if (c.ToString() == lineDelimiter)
+                    {
+                        dataPointsPerLine += 1;
+                        Console.WriteLine(s);
+                        if (saveDataCheckBox.Checked)
+                        {
+                            writeLineToFile(s + c);
+                        }
+                        manageExcelLineDelimiter(s);
+                        s = "";
+                    }
                     if (c.ToString() == delimiter)
                     {
                         Console.WriteLine(s);
                         if (saveDataCheckBox.Checked)
                         {
-                            writeLineToFile(s);
+                            writeLineToFile(s + c);
                         }
-                        manageExcel(s);
+                        manageExcel(s, dataPointsPerLine);
+                        dataPointsPerLine = 0;
                         s = "";
                     }
-                    else
+                    if (c.ToString() != delimiter && c.ToString() != lineDelimiter)
                     {
                         s += c;
                     }
@@ -221,6 +248,7 @@ namespace ArduinoSerialLogger
                 _serialPort.PortName = portBox.SelectedItem.ToString();
                 _serialPort.BaudRate = (int)baudrateNumericUpDown.Value;
                 _serialPort.DtrEnable = true;
+                //_serialPort.Encoding = System.Text.Encoding.GetEncoding(1252);
                 _serialPort.Open();
             }
         }
@@ -236,12 +264,14 @@ namespace ArduinoSerialLogger
             {
                 delimiter = "\r";
             }
+            string lineDelimiter = Properties.Settings.Default.lineDelimiter;
 
             _serialPort.ReadExisting();
             _serialPort.Write(new byte[] { 1 }, 0, 1);
             string s = "";
             waitingForData = true;
             long time = DateTime.Now.Ticks;
+            int dataPointsPerLine = 0;
             while (waitingForData)
             {
                 long elapsedTicks = DateTime.Now.Ticks - time;
@@ -257,19 +287,30 @@ namespace ArduinoSerialLogger
                 }
                 foreach (char c in r)
                 {
+                    if (c.ToString() == lineDelimiter)
+                    {
+                        dataPointsPerLine += 1;
+                        Console.WriteLine(s);
+                        if (saveDataCheckBox.Checked)
+                        {
+                            writeLineToFile(s + c);
+                        }
+                        manageExcelLineDelimiter(s);
+                        s = "";
+                    }
                     if (c.ToString() == delimiter)
                     {
                         Console.WriteLine(s);
                         if (saveDataCheckBox.Checked)
                         {
-                            writeLineToFile(s);
+                            writeLineToFile(s + c);
                         }
-                        manageExcel(s);
+                        manageExcel(s, dataPointsPerLine);
                         s = "";
                         waitingForData = false;
                         break;
                     }
-                    else
+                    if (c.ToString() != delimiter && c.ToString() != lineDelimiter)
                     {
                         s += c;
                     }
@@ -291,7 +332,7 @@ namespace ArduinoSerialLogger
             }
         }
 
-        private void manageExcel(string value)
+        private void manageExcelLineDelimiter(string value)
         {
             if (writeToExcelCheckbox.Checked)
             {
@@ -300,13 +341,49 @@ namespace ArduinoSerialLogger
                 {
                     writeToExcelCell(app, value);
                 }
-                if (nextRowRadioButton.Checked)
+                if (Properties.Settings.Default.afterWritingToCell == 1)
+                {
+                    moveActiveCellColumn(app);
+                }
+                if (Properties.Settings.Default.afterWritingToCell == 2)
                 {
                     moveActiveCellRow(app);
                 }
-                if (nextColumnRadioButton.Checked)
+            }
+        }
+
+        private void manageExcel(string value, int dataPointsPerLine = 0)
+        {
+            if (writeToExcelCheckbox.Checked)
+            {
+                Excel.Application app = getExcelApp();
+                if (app != null)
                 {
-                    moveActiveCellColumn(app);
+                    writeToExcelCell(app, value);
+                }
+                if (Properties.Settings.Default.moveActiveCell)
+                {
+                    if (nextRowRadioButton.Checked)
+                    {
+                        moveActiveCellRow(app);
+                        moveActiveCellColumnToStart(app, dataPointsPerLine);
+                    }
+                    if (nextColumnRadioButton.Checked)
+                    {
+                        moveActiveCellColumn(app);
+                        moveActiveCellRowToStart(app, dataPointsPerLine);
+                    }
+                }
+                else
+                {
+                    if (nextRowRadioButton.Checked)
+                    {
+                        moveActiveCellColumnToStart(app, dataPointsPerLine);
+                    }
+                    if (nextColumnRadioButton.Checked)
+                    {
+                        moveActiveCellRowToStart(app, dataPointsPerLine);
+                    }
                 }
             }
         }
@@ -336,6 +413,19 @@ namespace ArduinoSerialLogger
             newRange.Select();
         }
 
+        private void moveActiveCellRowToStart(Excel.Application app, int step)
+        {
+            Excel.Workbook book = app.ActiveWorkbook;
+            Excel.Worksheet sheet = book.ActiveSheet;
+            Excel.Range range = app.ActiveCell;
+
+            int row = range.Row;
+            int column = range.Column;
+
+            Excel.Range newRange = (Excel.Range)sheet.Cells[row - step, column];
+            newRange.Select();
+        }
+
         private void moveActiveCellColumn(Excel.Application app)
         {
             Excel.Workbook book = app.ActiveWorkbook;
@@ -346,6 +436,19 @@ namespace ArduinoSerialLogger
             int column = range.Column;
             
             Excel.Range newRange = (Excel.Range)sheet.Cells[row, column + 1];
+            newRange.Select();
+        }
+
+        private void moveActiveCellColumnToStart(Excel.Application app, int steps)
+        {
+            Excel.Workbook book = app.ActiveWorkbook;
+            Excel.Worksheet sheet = book.ActiveSheet;
+            Excel.Range range = app.ActiveCell;
+
+            int row = range.Row;
+            int column = range.Column;
+
+            Excel.Range newRange = (Excel.Range)sheet.Cells[row, column - steps];
             newRange.Select();
         }
 
@@ -408,6 +511,7 @@ namespace ArduinoSerialLogger
             Properties.Settings.Default.delimiter = delimiterComboBox.Text;
             Properties.Settings.Default.Save();
         }
+
 
         public static string ListAllApplications()
         {
@@ -484,6 +588,23 @@ namespace ArduinoSerialLogger
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lineDelimiterComboBox_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.lineDelimiter = lineDelimiterComboBox.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void moveActiveCellCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.moveActiveCell = moveActiveCellCheckBox.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
