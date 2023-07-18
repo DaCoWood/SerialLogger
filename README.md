@@ -1,9 +1,9 @@
-Serial Logger
+## Serial Logger
 
 A tool to receive serial data from a microcontroller and save it to a textfile or Microsoft Excel. Log contiously or request data by sending a serial message to the microcontroller which is programmed to respond (see code below).
 
-Arduino example code:
-void setup() {
+### Arduino example code:
+`void setup() {
   // start serial port at 9600 bps:
   Serial.begin(9600);
   while (!Serial) {
@@ -24,9 +24,9 @@ void establishContact() {
     Serial.println("1;2;3;");
     delay(1000);
   }
-}
+}`
 
-Excel usage:
+### Excel usage:
 - open a worksheet and select the cell you want to store the data in
 - select a option in which direction the cell will move after a complete datapacket has been received
 
