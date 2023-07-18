@@ -2,6 +2,13 @@
 
 A tool to receive serial data from a microcontroller and save it to a textfile or Microsoft Excel. Log contiously or request data by sending a serial message to the microcontroller which is programmed to respond (see code below).
 
+
+### Excel usage:
+- open a worksheet and select the cell you want to store the data in
+- select a option in which direction the cell will move after a complete datapacket has been received
+- Choose a delimiter to show where the Dataset ends (e.g. in '33;34;35#' the '#' shows the end of the dataset)
+- Choose a datapoint delimiter to differentiate the datapoints (e.g. in '33;34;35#' the ';' shows the end of the datapoint)
+
 ### Arduino example code:
 ```
 void setup() {
@@ -27,8 +34,4 @@ void establishContact() {
   }
 }
 ```
-
-### Excel usage:
-- open a worksheet and select the cell you want to store the data in
-- select a option in which direction the cell will move after a complete datapacket has been received
 

@@ -43,22 +43,22 @@ namespace ArduinoSerialLogger
             this.label2 = new System.Windows.Forms.Label();
             this.writeToExcelCheckbox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.moveActiveCellCheckBox = new System.Windows.Forms.CheckBox();
             this.nextColumnRadioButton = new System.Windows.Forms.RadioButton();
             this.nextRowRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.lineDelimiterComboBox = new System.Windows.Forms.ComboBox();
-            this.moveActiveCellCheckBox = new System.Windows.Forms.CheckBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.baudrateNumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // requestDataButton
@@ -201,6 +201,7 @@ namespace ArduinoSerialLogger
             this.label2.Size = new System.Drawing.Size(116, 17);
             this.label2.TabIndex = 12;
             this.label2.Text = "Dataset Delimiter";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // writeToExcelCheckbox
             // 
@@ -224,6 +225,17 @@ namespace ArduinoSerialLogger
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Move Active Cell after Dataset?";
+            // 
+            // moveActiveCellCheckBox
+            // 
+            this.moveActiveCellCheckBox.AutoSize = true;
+            this.moveActiveCellCheckBox.Location = new System.Drawing.Point(6, 21);
+            this.moveActiveCellCheckBox.Name = "moveActiveCellCheckBox";
+            this.moveActiveCellCheckBox.Size = new System.Drawing.Size(133, 21);
+            this.moveActiveCellCheckBox.TabIndex = 18;
+            this.moveActiveCellCheckBox.Text = "Move Active Cell";
+            this.moveActiveCellCheckBox.UseVisualStyleBackColor = true;
+            this.moveActiveCellCheckBox.CheckedChanged += new System.EventHandler(this.moveActiveCellCheckBox_CheckedChanged);
             // 
             // nextColumnRadioButton
             // 
@@ -276,6 +288,25 @@ namespace ArduinoSerialLogger
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Excel Settings";
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.lineDelimiterComboBox);
+            this.groupBox6.Location = new System.Drawing.Point(6, 168);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(255, 52);
+            this.groupBox6.TabIndex = 18;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Datapoint Delimiter";
+            // 
+            // lineDelimiterComboBox
+            // 
+            this.lineDelimiterComboBox.FormattingEnabled = true;
+            this.lineDelimiterComboBox.Location = new System.Drawing.Point(6, 21);
+            this.lineDelimiterComboBox.Name = "lineDelimiterComboBox";
+            this.lineDelimiterComboBox.Size = new System.Drawing.Size(121, 24);
+            this.lineDelimiterComboBox.TabIndex = 0;
+            this.lineDelimiterComboBox.SelectedIndexChanged += new System.EventHandler(this.lineDelimiterComboBox_SelectedIndexChanged_1);
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.button1);
@@ -300,36 +331,6 @@ namespace ArduinoSerialLogger
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Logger Control";
             // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.lineDelimiterComboBox);
-            this.groupBox6.Location = new System.Drawing.Point(6, 168);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(255, 52);
-            this.groupBox6.TabIndex = 18;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Datapoint Delimiter";
-            // 
-            // lineDelimiterComboBox
-            // 
-            this.lineDelimiterComboBox.FormattingEnabled = true;
-            this.lineDelimiterComboBox.Location = new System.Drawing.Point(6, 21);
-            this.lineDelimiterComboBox.Name = "lineDelimiterComboBox";
-            this.lineDelimiterComboBox.Size = new System.Drawing.Size(121, 24);
-            this.lineDelimiterComboBox.TabIndex = 0;
-            this.lineDelimiterComboBox.SelectedIndexChanged += new System.EventHandler(this.lineDelimiterComboBox_SelectedIndexChanged_1);
-            // 
-            // moveActiveCellCheckBox
-            // 
-            this.moveActiveCellCheckBox.AutoSize = true;
-            this.moveActiveCellCheckBox.Location = new System.Drawing.Point(6, 21);
-            this.moveActiveCellCheckBox.Name = "moveActiveCellCheckBox";
-            this.moveActiveCellCheckBox.Size = new System.Drawing.Size(133, 21);
-            this.moveActiveCellCheckBox.TabIndex = 18;
-            this.moveActiveCellCheckBox.Text = "Move Active Cell";
-            this.moveActiveCellCheckBox.UseVisualStyleBackColor = true;
-            this.moveActiveCellCheckBox.CheckedChanged += new System.EventHandler(this.moveActiveCellCheckBox_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -350,10 +351,10 @@ namespace ArduinoSerialLogger
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
