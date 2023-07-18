@@ -42,7 +42,6 @@ namespace ArduinoSerialLogger
             this.delimiterComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.writeToExcelCheckbox = new System.Windows.Forms.CheckBox();
-            this.noActionRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.nextColumnRadioButton = new System.Windows.Forms.RadioButton();
             this.nextRowRadioButton = new System.Windows.Forms.RadioButton();
@@ -50,12 +49,16 @@ namespace ArduinoSerialLogger
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.lineDelimiterComboBox = new System.Windows.Forms.ComboBox();
+            this.moveActiveCellCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.baudrateNumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // requestDataButton
@@ -195,62 +198,49 @@ namespace ArduinoSerialLogger
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(132, 74);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 17);
+            this.label2.Size = new System.Drawing.Size(116, 17);
             this.label2.TabIndex = 12;
-            this.label2.Text = "Delimiter";
+            this.label2.Text = "Dataset Delimiter";
             // 
             // writeToExcelCheckbox
             // 
             this.writeToExcelCheckbox.AutoSize = true;
             this.writeToExcelCheckbox.Location = new System.Drawing.Point(6, 21);
             this.writeToExcelCheckbox.Name = "writeToExcelCheckbox";
-            this.writeToExcelCheckbox.Size = new System.Drawing.Size(181, 21);
+            this.writeToExcelCheckbox.Size = new System.Drawing.Size(185, 21);
             this.writeToExcelCheckbox.TabIndex = 13;
-            this.writeToExcelCheckbox.Text = "write to Active Excel Cell";
+            this.writeToExcelCheckbox.Text = "Write to Active Excel Cell";
             this.writeToExcelCheckbox.UseVisualStyleBackColor = true;
             this.writeToExcelCheckbox.CheckedChanged += new System.EventHandler(this.writeToExcelCheckbox_CheckedChanged);
             // 
-            // noActionRadioButton
-            // 
-            this.noActionRadioButton.AutoSize = true;
-            this.noActionRadioButton.Checked = true;
-            this.noActionRadioButton.Location = new System.Drawing.Point(6, 21);
-            this.noActionRadioButton.Name = "noActionRadioButton";
-            this.noActionRadioButton.Size = new System.Drawing.Size(47, 21);
-            this.noActionRadioButton.TabIndex = 15;
-            this.noActionRadioButton.TabStop = true;
-            this.noActionRadioButton.Text = "No";
-            this.noActionRadioButton.UseVisualStyleBackColor = true;
-            this.noActionRadioButton.CheckedChanged += new System.EventHandler(this.noActionRadioButton_CheckedChanged);
-            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.moveActiveCellCheckBox);
             this.groupBox1.Controls.Add(this.nextColumnRadioButton);
             this.groupBox1.Controls.Add(this.nextRowRadioButton);
-            this.groupBox1.Controls.Add(this.noActionRadioButton);
             this.groupBox1.Location = new System.Drawing.Point(6, 50);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(255, 104);
+            this.groupBox1.Size = new System.Drawing.Size(255, 112);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Move Active Cell after Writing?";
+            this.groupBox1.Text = "Move Active Cell after Dataset?";
             // 
             // nextColumnRadioButton
             // 
             this.nextColumnRadioButton.AutoSize = true;
-            this.nextColumnRadioButton.Location = new System.Drawing.Point(6, 75);
+            this.nextColumnRadioButton.Location = new System.Drawing.Point(6, 74);
             this.nextColumnRadioButton.Name = "nextColumnRadioButton";
-            this.nextColumnRadioButton.Size = new System.Drawing.Size(114, 21);
+            this.nextColumnRadioButton.Size = new System.Drawing.Size(111, 21);
             this.nextColumnRadioButton.TabIndex = 17;
-            this.nextColumnRadioButton.TabStop = true;
-            this.nextColumnRadioButton.Text = "Newt Collumn";
+            this.nextColumnRadioButton.Text = "Next Collumn";
             this.nextColumnRadioButton.UseVisualStyleBackColor = true;
             this.nextColumnRadioButton.CheckedChanged += new System.EventHandler(this.nextColumnRadioButton_CheckedChanged);
             // 
             // nextRowRadioButton
             // 
             this.nextRowRadioButton.AutoSize = true;
-            this.nextRowRadioButton.Location = new System.Drawing.Point(6, 48);
+            this.nextRowRadioButton.Checked = true;
+            this.nextRowRadioButton.Location = new System.Drawing.Point(6, 47);
             this.nextRowRadioButton.Name = "nextRowRadioButton";
             this.nextRowRadioButton.Size = new System.Drawing.Size(88, 21);
             this.nextRowRadioButton.TabIndex = 16;
@@ -276,11 +266,12 @@ namespace ArduinoSerialLogger
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.groupBox6);
             this.groupBox3.Controls.Add(this.writeToExcelCheckbox);
             this.groupBox3.Controls.Add(this.groupBox1);
             this.groupBox3.Location = new System.Drawing.Point(18, 156);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(270, 162);
+            this.groupBox3.Size = new System.Drawing.Size(270, 232);
             this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Excel Settings";
@@ -307,7 +298,37 @@ namespace ArduinoSerialLogger
             this.groupBox5.Size = new System.Drawing.Size(258, 162);
             this.groupBox5.TabIndex = 20;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Logger";
+            this.groupBox5.Text = "Logger Control";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.lineDelimiterComboBox);
+            this.groupBox6.Location = new System.Drawing.Point(6, 168);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(255, 52);
+            this.groupBox6.TabIndex = 18;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Datapoint Delimiter";
+            // 
+            // lineDelimiterComboBox
+            // 
+            this.lineDelimiterComboBox.FormattingEnabled = true;
+            this.lineDelimiterComboBox.Location = new System.Drawing.Point(6, 21);
+            this.lineDelimiterComboBox.Name = "lineDelimiterComboBox";
+            this.lineDelimiterComboBox.Size = new System.Drawing.Size(121, 24);
+            this.lineDelimiterComboBox.TabIndex = 0;
+            this.lineDelimiterComboBox.SelectedIndexChanged += new System.EventHandler(this.lineDelimiterComboBox_SelectedIndexChanged_1);
+            // 
+            // moveActiveCellCheckBox
+            // 
+            this.moveActiveCellCheckBox.AutoSize = true;
+            this.moveActiveCellCheckBox.Location = new System.Drawing.Point(6, 21);
+            this.moveActiveCellCheckBox.Name = "moveActiveCellCheckBox";
+            this.moveActiveCellCheckBox.Size = new System.Drawing.Size(133, 21);
+            this.moveActiveCellCheckBox.TabIndex = 18;
+            this.moveActiveCellCheckBox.Text = "Move Active Cell";
+            this.moveActiveCellCheckBox.UseVisualStyleBackColor = true;
+            this.moveActiveCellCheckBox.CheckedChanged += new System.EventHandler(this.moveActiveCellCheckBox_CheckedChanged);
             // 
             // Form1
             // 
@@ -321,6 +342,7 @@ namespace ArduinoSerialLogger
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.baudrateNumericUpDown)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -331,6 +353,7 @@ namespace ArduinoSerialLogger
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -350,7 +373,6 @@ namespace ArduinoSerialLogger
         private System.Windows.Forms.ComboBox delimiterComboBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox writeToExcelCheckbox;
-        private System.Windows.Forms.RadioButton noActionRadioButton;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton nextColumnRadioButton;
         private System.Windows.Forms.RadioButton nextRowRadioButton;
@@ -358,6 +380,9 @@ namespace ArduinoSerialLogger
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.ComboBox lineDelimiterComboBox;
+        private System.Windows.Forms.CheckBox moveActiveCellCheckBox;
     }
 }
 

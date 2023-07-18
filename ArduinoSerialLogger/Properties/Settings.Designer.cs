@@ -104,7 +104,7 @@ namespace ArduinoSerialLogger.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int afterWritingToCell {
             get {
                 return ((int)(this["afterWritingToCell"]));
@@ -123,6 +123,49 @@ namespace ArduinoSerialLogger.Properties {
             }
             set {
                 this["writeToExcel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("None")]
+        public string lineDelimiter {
+            get {
+                return ((string)(this["lineDelimiter"]));
+            }
+            set {
+                this["lineDelimiter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>None</string>
+  <string>;</string>
+  <string>:</string>
+  <string>,</string>
+  <string>.</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection lineDelimiterCollection {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["lineDelimiterCollection"]));
+            }
+            set {
+                this["lineDelimiterCollection"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool moveActiveCell {
+            get {
+                return ((bool)(this["moveActiveCell"]));
+            }
+            set {
+                this["moveActiveCell"] = value;
             }
         }
     }
