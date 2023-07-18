@@ -14,7 +14,7 @@ void setup() {
 }
 
 void loop() {
-  // if we get a valid byte, read analog ins:
+  // if we get a valid byte, send data:
   if (Serial.available() > 0) {
     Serial.println("32;33;34;");
   }
