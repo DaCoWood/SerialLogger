@@ -3,7 +3,8 @@
 A tool to receive serial data from a microcontroller and save it to a textfile or Microsoft Excel. Log contiously or request data by sending a serial message to the microcontroller which is programmed to respond (see code below).
 
 ### Arduino example code:
-`void setup() {
+```
+void setup() {
   // start serial port at 9600 bps:
   Serial.begin(9600);
   while (!Serial) {
@@ -24,7 +25,8 @@ void establishContact() {
     Serial.println("1;2;3;");
     delay(1000);
   }
-}`
+}
+```
 
 ### Excel usage:
 - open a worksheet and select the cell you want to store the data in
