@@ -168,5 +168,17 @@ namespace ArduinoSerialLogger.Properties {
                 this["moveActiveCell"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool timestamp {
+            get {
+                return ((bool)(this["timestamp"]));
+            }
+            set {
+                this["timestamp"] = value;
+            }
+        }
     }
 }

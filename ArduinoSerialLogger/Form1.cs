@@ -105,6 +105,10 @@ namespace ArduinoSerialLogger
             {
                 nextColumnRadioButton.Checked = true;
             }
+            if (Properties.Settings.Default.timestamp)
+            {
+                timestampCheckBox.Checked = true;
+            }
         }
 
 
@@ -130,6 +134,20 @@ namespace ArduinoSerialLogger
             if (portBox.Items.Count > 0 && !portFound)
             {
                 portBox.SetSelected(0, true);
+            }
+        }
+
+        private void writeDateTime()
+        {
+            if (Properties.Settings.Default.timestamp)
+            {
+                string appPath = saveLocationLabel.Text;
+                using (StreamWriter writer = File.AppendText(appPath))
+                {
+                    var date1 = new DateTime(2008, 5, 1, 8, 30, 52);
+                    writer.Write(date1);
+                    writer.Write(Properties.Settings.Default.lineDelimiter);
+                }
             }
         }
 
@@ -164,6 +182,7 @@ namespace ArduinoSerialLogger
             string s = "";
             waitingForData = true;
             int dataPointsPerLine = 0;
+            bool newDataset = true;
             while (waitingForData)
             {
                 String r = _serialPort.ReadExisting();
@@ -173,6 +192,13 @@ namespace ArduinoSerialLogger
                 }
                 foreach (char c in r)
                 {
+                    if (newDataset)
+                    {
+                        writeDateTime();
+                        dataPointsPerLine += 1;
+                        manageExelDatetime(dataPointsPerLine);
+                        newDataset = false;
+                    }
                     if (c.ToString() == lineDelimiter)
                     {
                         dataPointsPerLine += 1;
@@ -194,6 +220,7 @@ namespace ArduinoSerialLogger
                         manageExcel(s, dataPointsPerLine);
                         dataPointsPerLine = 0;
                         s = "";
+                        newDataset = true;
                     }
                     if (c.ToString() != delimiter && c.ToString() != lineDelimiter)
                     {
@@ -214,6 +241,7 @@ namespace ArduinoSerialLogger
             closeConnectionButton.Enabled = true;
             openSerialPort();
             _serialPort.ReadExisting();
+            //requestContinuousData();
             await Task.Run(() => requestContinuousData());
             requestContinuousDataButton.Enabled = true;
             requestDataButton.Enabled = true;
@@ -272,6 +300,7 @@ namespace ArduinoSerialLogger
             waitingForData = true;
             long time = DateTime.Now.Ticks;
             int dataPointsPerLine = 0;
+            bool newDataset = true;
             while (waitingForData)
             {
                 long elapsedTicks = DateTime.Now.Ticks - time;
@@ -287,6 +316,13 @@ namespace ArduinoSerialLogger
                 }
                 foreach (char c in r)
                 {
+                    if (newDataset)
+                    {
+                        writeDateTime();
+                        dataPointsPerLine += 1;
+                        manageExelDatetime(dataPointsPerLine);
+                        newDataset = false;
+                    }
                     if (c.ToString() == lineDelimiter)
                     {
                         dataPointsPerLine += 1;
@@ -308,6 +344,7 @@ namespace ArduinoSerialLogger
                         manageExcel(s, dataPointsPerLine);
                         s = "";
                         waitingForData = false;
+                        newDataset = true;
                         break;
                     }
                     if (c.ToString() != delimiter && c.ToString() != lineDelimiter)
@@ -352,6 +389,36 @@ namespace ArduinoSerialLogger
             }
         }
 
+        private void manageExelDatetime(int dataPointsPerLine)
+        {
+            if (writeToExcelCheckbox.Checked)
+            {
+                Excel.Application app = getExcelApp();
+                if (app != null)
+                {
+                    //var date1 = new DateTime(2008, 5, 1, 8, 30, 52);
+                    var date1 = DateTime.Now;
+                    //double oaDate = DateTime.Now.ToOADate();
+                    //var date1 = DateTime.ToOADate;
+                    //date1 = date1.ToOADate();
+                    //worksheet.Range["D1"].DateTime = new DateTime(2009, 7, 30);
+                    //writeToExcelCell(app, oaDate.ToString());
+                    writeDatetimeToExcelCell(app, date1);
+                }
+                if (Properties.Settings.Default.moveActiveCell)
+                {
+                    if (nextRowRadioButton.Checked)
+                    {
+                        moveActiveCellColumn(app);
+                    }
+                    if (nextColumnRadioButton.Checked)
+                    {
+                        moveActiveCellRow(app);
+                    }
+                }
+            }
+        }
+
         private void manageExcel(string value, int dataPointsPerLine = 0)
         {
             if (writeToExcelCheckbox.Checked)
@@ -386,6 +453,19 @@ namespace ArduinoSerialLogger
                     }
                 }
             }
+        }
+
+
+        private void writeDatetimeToExcelCell(Excel.Application app, DateTime value)
+        {
+            Excel.Workbook book = app.ActiveWorkbook;
+            Excel.Worksheet sheet = book.ActiveSheet;
+            Excel.Range range = app.ActiveCell;
+
+            int row = range.Row;
+            int column = range.Column;
+
+            sheet.Cells[row, column] = value;
         }
 
         private void writeToExcelCell(Excel.Application app, string value)
@@ -612,6 +692,12 @@ namespace ArduinoSerialLogger
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void timestampCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.timestamp = timestampCheckBox.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }

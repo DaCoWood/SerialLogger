@@ -52,6 +52,7 @@ namespace ArduinoSerialLogger
             this.lineDelimiterComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.timestampCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.baudrateNumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -331,11 +332,23 @@ namespace ArduinoSerialLogger
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Logger Control";
             // 
+            // timestampCheckBox
+            // 
+            this.timestampCheckBox.AutoSize = true;
+            this.timestampCheckBox.Location = new System.Drawing.Point(599, 120);
+            this.timestampCheckBox.Name = "timestampCheckBox";
+            this.timestampCheckBox.Size = new System.Drawing.Size(99, 21);
+            this.timestampCheckBox.TabIndex = 21;
+            this.timestampCheckBox.Text = "Timestamp";
+            this.timestampCheckBox.UseVisualStyleBackColor = true;
+            this.timestampCheckBox.CheckedChanged += new System.EventHandler(this.timestampCheckBox_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.timestampCheckBox);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -356,6 +369,7 @@ namespace ArduinoSerialLogger
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -384,6 +398,7 @@ namespace ArduinoSerialLogger
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.ComboBox lineDelimiterComboBox;
         private System.Windows.Forms.CheckBox moveActiveCellCheckBox;
+        private System.Windows.Forms.CheckBox timestampCheckBox;
     }
 }
 
