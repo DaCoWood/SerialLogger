@@ -144,7 +144,7 @@ namespace ArduinoSerialLogger
             // saveDataCheckBox
             // 
             this.saveDataCheckBox.AutoSize = true;
-            this.saveDataCheckBox.Location = new System.Drawing.Point(6, 27);
+            this.saveDataCheckBox.Location = new System.Drawing.Point(6, 21);
             this.saveDataCheckBox.Name = "saveDataCheckBox";
             this.saveDataCheckBox.Size = new System.Drawing.Size(143, 21);
             this.saveDataCheckBox.TabIndex = 7;
@@ -169,7 +169,7 @@ namespace ArduinoSerialLogger
             // saveLocationLabel
             // 
             this.saveLocationLabel.AutoSize = true;
-            this.saveLocationLabel.Location = new System.Drawing.Point(6, 88);
+            this.saveLocationLabel.Location = new System.Drawing.Point(6, 82);
             this.saveLocationLabel.Name = "saveLocationLabel";
             this.saveLocationLabel.Size = new System.Drawing.Size(91, 17);
             this.saveLocationLabel.TabIndex = 9;
@@ -177,7 +177,7 @@ namespace ArduinoSerialLogger
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(6, 54);
+            this.button1.Location = new System.Drawing.Point(6, 48);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(150, 25);
             this.button1.TabIndex = 10;
@@ -264,6 +264,7 @@ namespace ArduinoSerialLogger
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.timestampCheckBox);
             this.groupBox2.Controls.Add(this.refreshPortsButton);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.portBox);
@@ -272,7 +273,7 @@ namespace ArduinoSerialLogger
             this.groupBox2.Controls.Add(this.baudrateNumericUpDown);
             this.groupBox2.Location = new System.Drawing.Point(12, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(276, 129);
+            this.groupBox2.Size = new System.Drawing.Size(276, 159);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "General Settings";
@@ -282,7 +283,7 @@ namespace ArduinoSerialLogger
             this.groupBox3.Controls.Add(this.groupBox6);
             this.groupBox3.Controls.Add(this.writeToExcelCheckbox);
             this.groupBox3.Controls.Add(this.groupBox1);
-            this.groupBox3.Location = new System.Drawing.Point(18, 156);
+            this.groupBox3.Location = new System.Drawing.Point(18, 177);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(270, 232);
             this.groupBox3.TabIndex = 18;
@@ -315,7 +316,7 @@ namespace ArduinoSerialLogger
             this.groupBox4.Controls.Add(this.saveDataCheckBox);
             this.groupBox4.Location = new System.Drawing.Point(294, 21);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(258, 120);
+            this.groupBox4.Size = new System.Drawing.Size(258, 150);
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Logger Settings";
@@ -325,7 +326,7 @@ namespace ArduinoSerialLogger
             this.groupBox5.Controls.Add(this.closeConnectionButton);
             this.groupBox5.Controls.Add(this.requestDataButton);
             this.groupBox5.Controls.Add(this.requestContinuousDataButton);
-            this.groupBox5.Location = new System.Drawing.Point(294, 156);
+            this.groupBox5.Location = new System.Drawing.Point(294, 177);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(258, 162);
             this.groupBox5.TabIndex = 20;
@@ -335,11 +336,11 @@ namespace ArduinoSerialLogger
             // timestampCheckBox
             // 
             this.timestampCheckBox.AutoSize = true;
-            this.timestampCheckBox.Location = new System.Drawing.Point(599, 120);
+            this.timestampCheckBox.Location = new System.Drawing.Point(6, 124);
             this.timestampCheckBox.Name = "timestampCheckBox";
-            this.timestampCheckBox.Size = new System.Drawing.Size(99, 21);
+            this.timestampCheckBox.Size = new System.Drawing.Size(184, 21);
             this.timestampCheckBox.TabIndex = 21;
-            this.timestampCheckBox.Text = "Timestamp";
+            this.timestampCheckBox.Text = "Add Datetime to Dataset";
             this.timestampCheckBox.UseVisualStyleBackColor = true;
             this.timestampCheckBox.CheckedChanged += new System.EventHandler(this.timestampCheckBox_CheckedChanged);
             // 
@@ -348,7 +349,6 @@ namespace ArduinoSerialLogger
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.timestampCheckBox);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -369,7 +369,6 @@ namespace ArduinoSerialLogger
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
