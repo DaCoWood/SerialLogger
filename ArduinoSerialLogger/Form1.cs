@@ -1,30 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-using System.Threading;
+using System.Collections.Specialized;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
-using System.Configuration;
-
-using System.Collections.Specialized;
-using Excel = Microsoft.Office.Interop.Excel;
-using System.Reflection;
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Management;
-using System.ComponentModel;
-using System.Diagnostics;
-
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ArduinoSerialLogger
 {
@@ -105,9 +89,9 @@ namespace ArduinoSerialLogger
             {
                 nextColumnRadioButton.Checked = true;
             }
-            if (Properties.Settings.Default.timestamp)
+            if (Properties.Settings.Default.logDatetime)
             {
-                timestampCheckBox.Checked = true;
+                logDatetimeCheckBox.Checked = true;
             }
         }
 
@@ -139,12 +123,12 @@ namespace ArduinoSerialLogger
 
         private void writeDateTime()
         {
-            if (Properties.Settings.Default.timestamp)
+            if (Properties.Settings.Default.logDatetime)
             {
                 string appPath = saveLocationLabel.Text;
                 using (StreamWriter writer = File.AppendText(appPath))
                 {
-                    var date1 = new DateTime(2008, 5, 1, 8, 30, 52);
+                    var date1 = DateTime.Now;
                     writer.Write(date1);
                     writer.Write(Properties.Settings.Default.lineDelimiter);
                 }
@@ -694,10 +678,53 @@ namespace ArduinoSerialLogger
 
         }
 
-        private void timestampCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void logDatetimeCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.timestamp = timestampCheckBox.Checked;
+            Properties.Settings.Default.logDatetime = logDatetimeCheckBox.Checked;
             Properties.Settings.Default.Save();
+        }
+
+        private void addDelimiterButton_Click(object sender, EventArgs e)
+        {
+            if (addDelimiterTextBox.Text != "")
+            {
+                Properties.Settings.Default.delimiterCollection.Add(addDelimiterTextBox.Text);
+                Properties.Settings.Default.Save();
+                delimiterComboBox.Items.Add(addDelimiterTextBox.Text);
+            }
+        }
+
+        private void removeDelimiterButton_Click(object sender, EventArgs e)
+        {
+            if (delimiterComboBox.SelectedIndex != 0 || delimiterComboBox.SelectedIndex != 1)
+            {
+                Properties.Settings.Default.delimiterCollection.Remove(delimiterComboBox.SelectedItem.ToString());
+                Properties.Settings.Default.Save();
+                delimiterComboBox.Items.Remove(delimiterComboBox.SelectedItem);
+                delimiterComboBox.SelectedIndex = 0;
+            }
+        }
+
+
+        private void addLineDelimiterButton_Click(object sender, EventArgs e)
+        {
+            if (addLineDelimiterTextBox.Text != "")
+            {
+                Properties.Settings.Default.lineDelimiterCollection.Add(addLineDelimiterTextBox.Text);
+                Properties.Settings.Default.Save();
+                lineDelimiterComboBox.Items.Add(addLineDelimiterTextBox.Text);
+            }
+        }
+
+        private void removeLineDelimiterButton_Click(object sender, EventArgs e)
+        {
+            if (lineDelimiterComboBox.SelectedIndex != 0)
+            {
+                Properties.Settings.Default.lineDelimiterCollection.Remove(lineDelimiterComboBox.SelectedItem.ToString());
+                Properties.Settings.Default.Save();
+                lineDelimiterComboBox.Items.Remove(lineDelimiterComboBox.SelectedItem);
+                lineDelimiterComboBox.SelectedIndex = 0;
+            }
         }
     }
 }

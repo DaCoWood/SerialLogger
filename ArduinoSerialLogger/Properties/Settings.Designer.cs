@@ -172,12 +172,12 @@ namespace ArduinoSerialLogger.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool timestamp {
+        public bool logDatetime {
             get {
-                return ((bool)(this["timestamp"]));
+                return ((bool)(this["logDatetime"]));
             }
             set {
-                this["timestamp"] = value;
+                this["logDatetime"] = value;
             }
         }
     }

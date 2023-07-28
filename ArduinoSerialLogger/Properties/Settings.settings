@@ -49,7 +49,7 @@
     <Setting Name="moveActiveCell" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="timestamp" Type="System.Boolean" Scope="User">
+    <Setting Name="logDatetime" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
