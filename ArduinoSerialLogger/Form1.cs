@@ -10,10 +10,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 
+using System.Globalization;
+
 namespace ArduinoSerialLogger
 {
     public partial class Form1 : Form
     {
+        CultureInfo cultureDe = new CultureInfo("de-DE", false);
+        CultureInfo cultureUs = new CultureInfo("us-US", false);
         static SerialPort _serialPort;
         bool waitingForData = false;
         public Form1()
@@ -186,7 +190,7 @@ namespace ArduinoSerialLogger
                     if (c.ToString() == lineDelimiter)
                     {
                         dataPointsPerLine += 1;
-                        Console.WriteLine(s);
+                        //Console.WriteLine(s);
                         if (saveDataCheckBox.Checked)
                         {
                             writeLineToFile(s + c);
@@ -196,7 +200,7 @@ namespace ArduinoSerialLogger
                     }
                     if (c.ToString() == delimiter)
                     {
-                        Console.WriteLine(s);
+                        //Console.WriteLine(s);
                         if (saveDataCheckBox.Checked)
                         {
                             writeLineToFile(s + c);
@@ -460,8 +464,27 @@ namespace ArduinoSerialLogger
 
             int row = range.Row;
             int column = range.Column;
+            Console.WriteLine(value);
+            try
+            {
+                double nr = double.Parse(value, cultureUs);
+                sheet.Cells[row, column] = nr;
 
-            sheet.Cells[row, column] = value;
+                //value = duration.ToString(cultureUs);
+
+
+                //value = string.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:0.0}", value);
+                //Console.WriteLine(value);
+                //value = string.Format(cultureDe, "{0:0.0}", value);
+                //Console.WriteLine(value);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("E ");
+                sheet.Cells[row, column] = value;
+            }
+            Console.WriteLine(value);
+
         }
 
         private void moveActiveCellRow(Excel.Application app)
