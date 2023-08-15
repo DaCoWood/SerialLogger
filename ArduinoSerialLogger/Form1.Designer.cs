@@ -29,6 +29,7 @@ namespace ArduinoSerialLogger
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.requestDataButton = new System.Windows.Forms.Button();
             this.portBox = new System.Windows.Forms.ListBox();
             this.baudrateNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -59,6 +60,11 @@ namespace ArduinoSerialLogger
             this.lineDelimiterComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.loggerTextBox = new System.Windows.Forms.TextBox();
+            this.clearLoggerButton = new System.Windows.Forms.Button();
+            this.worksheetLabel = new System.Windows.Forms.Label();
+            this.worksheetOpenTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.baudrateNumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -67,6 +73,7 @@ namespace ArduinoSerialLogger
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // requestDataButton
@@ -328,12 +335,13 @@ namespace ArduinoSerialLogger
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.worksheetLabel);
             this.groupBox3.Controls.Add(this.groupBox6);
             this.groupBox3.Controls.Add(this.writeToExcelCheckbox);
             this.groupBox3.Controls.Add(this.groupBox1);
             this.groupBox3.Location = new System.Drawing.Point(18, 177);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(498, 182);
+            this.groupBox3.Size = new System.Drawing.Size(498, 193);
             this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Excel Settings";
@@ -412,11 +420,59 @@ namespace ArduinoSerialLogger
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Logger Control";
             // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.clearLoggerButton);
+            this.groupBox8.Controls.Add(this.loggerTextBox);
+            this.groupBox8.Location = new System.Drawing.Point(18, 376);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(770, 206);
+            this.groupBox8.TabIndex = 21;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Logger";
+            // 
+            // loggerTextBox
+            // 
+            this.loggerTextBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.loggerTextBox.Location = new System.Drawing.Point(3, 49);
+            this.loggerTextBox.Multiline = true;
+            this.loggerTextBox.Name = "loggerTextBox";
+            this.loggerTextBox.ReadOnly = true;
+            this.loggerTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.loggerTextBox.Size = new System.Drawing.Size(764, 154);
+            this.loggerTextBox.TabIndex = 1;
+            this.loggerTextBox.WordWrap = false;
+            // 
+            // clearLoggerButton
+            // 
+            this.clearLoggerButton.Location = new System.Drawing.Point(3, 18);
+            this.clearLoggerButton.Name = "clearLoggerButton";
+            this.clearLoggerButton.Size = new System.Drawing.Size(97, 25);
+            this.clearLoggerButton.TabIndex = 2;
+            this.clearLoggerButton.Text = "Clear Log";
+            this.clearLoggerButton.UseVisualStyleBackColor = true;
+            this.clearLoggerButton.Click += new System.EventHandler(this.clearLoggerButton_Click);
+            // 
+            // worksheetLabel
+            // 
+            this.worksheetLabel.AutoSize = true;
+            this.worksheetLabel.Location = new System.Drawing.Point(6, 165);
+            this.worksheetLabel.Name = "worksheetLabel";
+            this.worksheetLabel.Size = new System.Drawing.Size(160, 17);
+            this.worksheetLabel.TabIndex = 3;
+            this.worksheetLabel.Text = "Excel Worksheet Open?";
+            // 
+            // worksheetOpenTimer
+            // 
+            this.worksheetOpenTimer.Interval = 1000;
+            this.worksheetOpenTimer.Tick += new System.EventHandler(this.worksheetOpenTimer_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(809, 594);
+            this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -439,6 +495,8 @@ namespace ArduinoSerialLogger
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -475,6 +533,11 @@ namespace ArduinoSerialLogger
         private System.Windows.Forms.Button removeLineDelimiterButton;
         private System.Windows.Forms.TextBox addLineDelimiterTextBox;
         private System.Windows.Forms.Button addLineDelimiterButton;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.TextBox loggerTextBox;
+        private System.Windows.Forms.Button clearLoggerButton;
+        private System.Windows.Forms.Label worksheetLabel;
+        private System.Windows.Forms.Timer worksheetOpenTimer;
     }
 }
 
